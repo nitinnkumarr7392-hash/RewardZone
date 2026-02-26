@@ -3,94 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RewardZone - Earn Coins Daily</title>
-    <link rel="manifest" href="data:application/manifest+json,{
-        'name': 'RewardZone',
-        'short_name': 'RewardZone',
-        'start_url': '.',
-        'display': 'standalone',
-        'background_color': '#1e3a8a',
-        'theme_color': '#3b82f6',
-        'icons': [{'src': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMzYjgyZjYiLz4KPHRleHQgeD0iOTYiIHk9IjEwNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgZm9udC13ZWlnaHQ9IjYwMCI+UjwvdGV4dD4KPHRleHQgeD0iOTYiIHk9IjEzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgZm9udC13ZWlnaHQ9IjYwMCI+Wi88dGV4dD4KPC9zdmc+', 'sizes': '192x192', 'type': 'image/svg+xml'}]
-    }">
+    <title>DailyCoin Pro</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- [Previous HTML same till Profile Tab] -->
-    
-    <!-- Profile Tab - Updated with Withdrawal -->
-    <div id="profileTab" class="tab-content">
-        <div class="profile-header">
-            <div class="avatar">👤</div>
-            <h3 id="username">User</h3>
-            <div class="balance-display">
-                <div>💰 <span id="coins">0</span> Coins = ₹<span id="rupees">0</span></div>
-                <div class="min-withdraw">Minimum Withdrawal: ₹5 (500 Coins)</div>
-            </div>
-            <div class="badges" id="badges"></div>
-        </div>
-        
-        <!-- Withdrawal Section -->
-        <div class="withdraw-section">
-            <h4>💳 Withdraw Earnings</h4>
-            <div class="withdraw-options">
-                <label class="withdraw-option">
-                    <input type="radio" name="method" value="upi" checked>
-                    <div>UPI / PhonePe</div>
-                </label>
-                <label class="withdraw-option">
-                    <input type="radio" name="method" value="bank">
-                    <div>Bank Account</div>
-                </label>
-                <label class="withdraw-option">
-                    <input type="radio" name="method" value="paytm">
-                    <div>Paytm</div>
-                </label>
-                <label class="withdraw-option">
-                    <input type="radio" name="method" value="gpay">
-                    <div>Google Pay</div>
-                </label>
-            </div>
-            <input type="text" id="withdrawNumber" placeholder="UPI ID / Phone / Account No">
-            <button id="withdrawBtn" class="btn-primary full-width" disabled>Withdraw ₹<span id="withdrawAmount">0</span></button>
-        </div>
-        
-        <button id="redeemBtn" class="btn-secondary full-width">🎁 Redeem Code</button>
-        <div class="history">
-            <h4>Recent Activity</h4>
-            <div id="historyList"></div>
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <div class="login-card">
+            <h1>DailyCoin Pro</h1>
+            <input type="text" id="mobile" placeholder="Enter Mobile Number">
+            <button id="otp-login">Login with OTP</button>
+            <button id="google-login">Login with Google</button>
+            <p>or</p>
+            <button id="signup">Create New Account</button>
         </div>
     </div>
 
-    <!-- Game Modal -->
-    <div id="gameModal" class="modal hidden">
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="screen">
+        <header>
+            <h2>Coins: <span id="coin-balance">0</span> (₹<span id="coin-rupee">0</span>)</h2>
+            <button id="withdraw-btn">Withdraw</button>
+        </header>
+        <main>
+            <div class="tasks-grid">
+                <div class="task-card" id="video-task">
+                    <h3>Video Task</h3>
+                    <p>20/day</p>
+                    <button>Start</button>
+                </div>
+                <div class="task-card" id="lucky-spin">
+                    <h3>Lucky Spin</h3>
+                    <p>20 spins/day</p>
+                    <button>Spin</button>
+                </div>
+                <div class="task-card" id="daily-checkin">
+                    <h3>Daily Check-in</h3>
+                    <p>1/day</p>
+                    <button>Check In</button>
+                </div>
+                <div class="task-card" id="game-task">
+                    <h3>Game Task</h3>
+                    <p>Time-based</p>
+                    <button>Play</button>
+                </div>
+                <div class="task-card" id="puzzle-task">
+                    <h3>Puzzle Task</h3>
+                    <p>20/day</p>
+                    <button>Start</button>
+                </div>
+                <div class="task-card" id="survey-task">
+                    <h3>Survey Task</h3>
+                    <p>5/day</p>
+                    <button>Answer</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Withdrawal Modal -->
+    <div id="withdraw-modal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="gameTitle">Game</h3>
-                <span class="close">&times;</span>
-                <div class="game-timer">Time: <span id="gameTime">0</span>s | Coins: <span id="gameCoins">0</span></div>
-            </div>
-            <div id="gameCanvas"></div>
-            <button id="claimGameCoins" class="btn-primary">Claim Coins</button>
+            <h3>Withdraw Coins</h3>
+            <input type="text" id="withdraw-method" placeholder="Enter UPI / Paytm / Bank">
+            <button id="confirm-withdraw">Confirm</button>
+            <button id="close-withdraw">Close</button>
         </div>
     </div>
-
-    <!-- Puzzle Modal -->
-    <div id="puzzleModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Puzzle Game</h3>
-                <span class="close">&times;</span>
-            </div>
-            <canvas id="puzzleCanvas" width="300" height="300"></canvas>
-            <div class="puzzle-info">
-                Solved: <span id="puzzlesSolved">0</span>/20 | Coins: <span id="puzzleCoins">0</span>
-            </div>
-            <button id="claimPuzzleCoins" class="btn-primary">Claim All Coins</button>
-        </div>
-    </div>
-
-    <!-- [Rest of modals same] -->
-    <script src="script.js"></script>
 </body>
 </html>
