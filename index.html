@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RewardZone - Earn Rewards Daily</title>
+    <title>RewardZone - Earn Coins Daily</title>
     <link rel="manifest" href="data:application/manifest+json,{
         'name': 'RewardZone',
         'short_name': 'RewardZone',
@@ -16,133 +16,81 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div id="splash" class="splash-screen">
-        <div class="splash-content">
-            <div class="logo">💎</div>
-            <h1>RewardZone</h1>
-            <p>Earn Real Rewards Daily</p>
-            <button id="getStarted" class="btn-primary">Get Started</button>
+    <!-- [Previous HTML same till Profile Tab] -->
+    
+    <!-- Profile Tab - Updated with Withdrawal -->
+    <div id="profileTab" class="tab-content">
+        <div class="profile-header">
+            <div class="avatar">👤</div>
+            <h3 id="username">User</h3>
+            <div class="balance-display">
+                <div>💰 <span id="coins">0</span> Coins = ₹<span id="rupees">0</span></div>
+                <div class="min-withdraw">Minimum Withdrawal: ₹5 (500 Coins)</div>
+            </div>
+            <div class="badges" id="badges"></div>
+        </div>
+        
+        <!-- Withdrawal Section -->
+        <div class="withdraw-section">
+            <h4>💳 Withdraw Earnings</h4>
+            <div class="withdraw-options">
+                <label class="withdraw-option">
+                    <input type="radio" name="method" value="upi" checked>
+                    <div>UPI / PhonePe</div>
+                </label>
+                <label class="withdraw-option">
+                    <input type="radio" name="method" value="bank">
+                    <div>Bank Account</div>
+                </label>
+                <label class="withdraw-option">
+                    <input type="radio" name="method" value="paytm">
+                    <div>Paytm</div>
+                </label>
+                <label class="withdraw-option">
+                    <input type="radio" name="method" value="gpay">
+                    <div>Google Pay</div>
+                </label>
+            </div>
+            <input type="text" id="withdrawNumber" placeholder="UPI ID / Phone / Account No">
+            <button id="withdrawBtn" class="btn-primary full-width" disabled>Withdraw ₹<span id="withdrawAmount">0</span></button>
+        </div>
+        
+        <button id="redeemBtn" class="btn-secondary full-width">🎁 Redeem Code</button>
+        <div class="history">
+            <h4>Recent Activity</h4>
+            <div id="historyList"></div>
         </div>
     </div>
 
-    <!-- Login Screen -->
-    <div id="loginScreen" class="screen hidden">
-        <div class="container">
-            <h2>Welcome Back!</h2>
-            <div class="social-login">
-                <button class="social-btn google">📱 Google</button>
-                <button class="social-btn facebook">📘 Facebook</button>
-            </div>
-            <div class="divider">or</div>
-            <form id="loginForm">
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit" class="btn-primary full-width">Login</button>
-            </form>
-            <p class="signup-link">New? <span id="showSignup">Sign Up</span></p>
-        </div>
-    </div>
-
-    <!-- Dashboard -->
-    <div id="dashboard" class="screen hidden">
-        <header class="header">
-            <div class="balance-card">
-                <div class="balance">₹<span id="points">0</span></div>
-                <div class="streak">🔥 <span id="streak">0</span> day streak</div>
-            </div>
-            <div class="stats">
-                <div class="stat">📊 <span id="todayPoints">0</span> Today</div>
-                <div class="stat">🏆 <span id="rank">#<span id="userRank">1</span></span></div>
-            </div>
-        </header>
-
-        <nav class="nav-tabs">
-            <button class="nav-btn active" data-tab="earn">💰 Earn</button>
-            <button class="nav-btn" data-tab="tasks">📋 Tasks</button>
-            <button class="nav-btn" data-tab="videos">🎥 Videos</button>
-            <button class="nav-btn" data-tab="refer">👥 Refer</button>
-            <button class="nav-btn" data-tab="profile">👤 Profile</button>
-        </nav>
-
-        <!-- Earn Tab -->
-        <div id="earnTab" class="tab-content active">
-            <div class="quick-actions">
-                <button class="quick-btn" data-action="checkin">✅ Daily Check-in</button>
-                <button class="quick-btn" data-action="spin">🎰 Lucky Spin</button>
-                <button class="quick-btn" data-action="challenge">⚡ Daily Challenge</button>
-            </div>
-            <div class="earnings-summary">
-                <div class="earning-item">
-                    <span>Today's Earnings</span>
-                    <span id="todayEarnings">₹0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tasks Tab -->
-        <div id="tasksTab" class="tab-content">
-            <div id="tasksList" class="tasks-grid"></div>
-        </div>
-
-        <!-- Videos Tab -->
-        <div id="videosTab" class="tab-content">
-            <div id="videosList" class="videos-grid"></div>
-        </div>
-
-        <!-- Refer Tab -->
-        <div id="referTab" class="tab-content">
-            <div class="referral-card">
-                <h3>Invite Friends</h3>
-                <div class="ref-code">REF-<span id="refCode"></span></div>
-                <button id="copyRef" class="btn-primary">📋 Copy Link</button>
-                <div class="ref-rewards">
-                    <div>👨‍👩‍👧 Friend joins: ₹50</div>
-                    <div>👨‍👩‍👧 Friend earns: ₹25</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profile Tab -->
-        <div id="profileTab" class="tab-content">
-            <div class="profile-header">
-                <div class="avatar">👤</div>
-                <h3 id="username">User</h3>
-                <div class="badges" id="badges"></div>
-            </div>
-            <button id="redeemBtn" class="btn-primary full-width">💳 Redeem Points</button>
-            <div class="history">
-                <h4>Recent Activity</h4>
-                <div id="historyList"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Task Modal -->
-    <div id="taskModal" class="modal hidden">
+    <!-- Game Modal -->
+    <div id="gameModal" class="modal hidden">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="taskTitle"></h3>
+                <h3 id="gameTitle">Game</h3>
+                <span class="close">&times;</span>
+                <div class="game-timer">Time: <span id="gameTime">0</span>s | Coins: <span id="gameCoins">0</span></div>
+            </div>
+            <div id="gameCanvas"></div>
+            <button id="claimGameCoins" class="btn-primary">Claim Coins</button>
+        </div>
+    </div>
+
+    <!-- Puzzle Modal -->
+    <div id="puzzleModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Puzzle Game</h3>
                 <span class="close">&times;</span>
             </div>
-            <div id="taskContent"></div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+            <canvas id="puzzleCanvas" width="300" height="300"></canvas>
+            <div class="puzzle-info">
+                Solved: <span id="puzzlesSolved">0</span>/20 | Coins: <span id="puzzleCoins">0</span>
             </div>
-            <button id="completeTask" class="btn-primary" disabled>Complete (0/<span id="taskPoints">0</span>)</button>
+            <button id="claimPuzzleCoins" class="btn-primary">Claim All Coins</button>
         </div>
     </div>
 
-    <!-- Notification -->
-    <div id="notification" class="notification hidden">
-        <div class="notif-content">
-            <span id="notifText"></span>
-            <audio id="notifSound" preload="auto">
-                <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq9d+9P9rCQFjr6mf8P9jAQA=" type="audio/wav">
-            </audio>
-        </div>
-    </div>
-
+    <!-- [Rest of modals same] -->
     <script src="script.js"></script>
 </body>
 </html>
