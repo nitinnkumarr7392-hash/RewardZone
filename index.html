@@ -1,186 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DailyCoin Pro - Earn ₹20-30 Daily</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DailyCoin Pro - Earn ₹20-30 Daily</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="loginScreen" class="screen active">
-        <div class="login-container">
-            <div class="logo">
-                <i class="fas fa-coins"></i>
-                <h1>DailyCoin Pro</h1>
-                <p>Earn ₹20-30 Daily • Guaranteed</p>
-            </div>
-            
-            <div class="auth-buttons">
-                <button class="auth-btn google-btn" onclick="googleLogin()">
-                    <i class="fab fa-google"></i> Continue with Google
-                </button>
-                <button class="auth-btn phone-btn" onclick="showOTP()">
-                    <i class="fas fa-mobile-alt"></i> Phone Number
-                </button>
-            </div>
+  <!-- Login / Signup Screen -->
+  <div id="loginScreen" class="screen active">
+    <div class="login-container">
+      <div class="logo">
+        <i class="fas fa-coins"></i>
+        <h1>DailyCoin Pro</h1>
+        <p>Earn ₹20-30 Daily • Guaranteed</p>
+      </div>
 
-            <div class="otp-container" id="otpContainer" style="display: none;">
-                <input type="tel" id="phoneInput" placeholder="Enter mobile number" maxlength="10">
-                <button class="otp-btn" onclick="verifyOTP()">Send OTP</button>
-                <div class="otp-inputs" id="otpInputs" style="display: none;">
-                    <input type="text" maxlength="1" class="otp-digit">
-                    <input type="text" maxlength="1" class="otp-digit">
-                    <input type="text" maxlength="1" class="otp-digit">
-                    <input type="text" maxlength="1" class="otp-digit">
-                    <input type="text" maxlength="1" class="otp-digit">
-                    <input type="text" maxlength="1" class="otp-digit">
-                    <button class="verify-btn" onclick="loginUser()">Verify OTP</button>
-                </div>
-            </div>
+      <!-- Login -->
+      <div id="loginContainer">
+        <h3 class="auth-title">Login</h3>
+        <input id="emailInput" type="text" placeholder="Email or Mobile" />
+        <input id="passwordInput" type="password" placeholder="Password" />
+        <button class="auth-btn" onclick="loginWithEmailPassword()">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button class="link-btn" onclick="forgotPassword()">
+          Forgot Password?
+        </button>
+        <button class="link-btn" onclick="showSignupScreen()">
+          Create New Account
+        </button>
+      </div>
 
-            <div class="privacy-note">
-                <i class="fas fa-shield-alt"></i>
-                <span>Your data is safe with us</span>
-            </div>
+      <!-- Signup -->
+      <div id="signupContainer" style="display: none;">
+        <h3 class="auth-title">Create Account</h3>
+        <input id="signupPhone" type="text" placeholder="Mobile (optional)" />
+        <input id="signupEmail" type="text" placeholder="Email" />
+        <input id="signupPassword" type="password" placeholder="Password" />
+        <button class="auth-btn" onclick="signupWithPhoneOrEmail()">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+        <button class="link-btn" onclick="showLoginScreen()">
+          Already have account?
+        </button>
+      </div>
+
+      <div class="privacy-note">
+        <i class="fas fa-shield-alt"></i>
+        <span>Your data is safe with us</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="mainApp" class="screen">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="balance">
+        <div class="coins">
+          <span id="coinBalance">0</span> <i class="fas fa-coins"></i>
         </div>
+        <div class="rupees">₹<span id="rupeeBalance">0.00</span></div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <small>₹5 Min Withdrawal</small>
+      </div>
+      <button class="withdraw-btn" onclick="showWithdraw()">
+        <i class="fas fa-wallet"></i> Withdraw
+      </button>
     </div>
 
-    <!-- Main App -->
-    <div id="mainApp" class="screen">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="balance">
-                <div class="coins">
-                    <span id="coinBalance">1,250</span> <i class="fas fa-coins"></i>
-                </div>
-                <div class="rupees">₹<span id="rupeeBalance">12.50</span></div>
-            </div>
-            <div class="progress-container">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 45%"></div>
-                </div>
-                <small>₹5 Min Withdrawal</small>
-            </div>
-            <button class="withdraw-btn" onclick="showWithdraw()">
-                <i class="fas fa-wallet"></i> Withdraw
-            </button>
+    <!-- Daily Goals / Streak -->
+    <div class="daily-goals">
+      <h3>Daily Streak: <span id="streakDays">0</span>🔥</h3>
+      <div class="goals-progress">
+        <div class="goal-item">
+          <div class="goal-circle" id="checkInCircle">0/1</div>
+          <span>Check‑in</span>
         </div>
-
-        <!-- Daily Goals -->
-        <div class="daily-goals">
-            <h3>Daily Streak: <span id="streakDays">7</span>🔥</h3>
-            <div class="goals-progress">
-                <div class="goal-item">
-                    <div class="goal-circle active">3/5</div>
-                    <span>Apps</span>
-                </div>
-                <div class="goal-item">
-                    <div class="goal-circle">12/20</div>
-                    <span>Videos</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tasks Grid -->
-        <div class="tasks-grid">
-            <div class="task-card" onclick="completeTask('checkin', 75)">
-                <div class="task-icon checkin"><i class="fas fa-calendar-check"></i></div>
-                <h4>Daily Check-in</h4>
-                <p>+75 Coins</p>
-                <div class="task-btn">Claim Now</div>
-            </div>
-
-            <div class="task-card" onclick="completeTask('spin', 42)">
-                <div class="task-icon spin"><i class="fas fa-dice"></i></div>
-                <h4>Lucky Spin</h4>
-                <p>+5-50 Coins</p>
-                <div class="task-btn spin-btn">Spin</div>
-            </div>
-
-            <div class="task-card" onclick="completeTask('video', 15)">
-                <div class="task-icon video"><i class="fas fa-play-circle"></i></div>
-                <h4>Watch Video</h4>
-                <p>+15 Coins</p>
-                <div class="task-btn">Watch</div>
-            </div>
-
-            <div class="task-card" onclick="completeTask('app', 150)">
-                <div class="task-icon app"><i class="fas fa-download"></i></div>
-                <h4>Install App</h4>
-                <p>+150 Coins</p>
-                <div class="task-btn">Install</div>
-            </div>
-
-            <div class="task-card" onclick="completeTask('game', 25)">
-                <div class="task-icon game"><i class="fas fa-gamepad"></i></div>
-                <h4>Play Game</h4>
-                <p>+25 Coins</p>
-                <div class="task-btn">Play</div>
-            </div>
-
-            <div class="task-card" onclick="completeTask('survey', 80)">
-                <div class="task-icon survey"><i class="fas fa-clipboard-check"></i></div>
-                <h4>Quick Survey</h4>
-                <p>+80 Coins</p>
-                <div class="task-btn">Start</div>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation -->
-        <div class="bottom-nav">
-            <div class="nav-item active" onclick="switchTab('home')">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </div>
-            <div class="nav-item" onclick="switchTab('history')">
-                <i class="fas fa-history"></i>
-                <span>History</span>
-            </div>
-            <div class="nav-item" onclick="showWithdraw()">
-                <i class="fas fa-wallet"></i>
-                <span>Wallet</span>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <!-- Withdraw Modal -->
-    <div id="withdrawModal" class="modal">
-        <div class="modal-content">
-            <h3>Withdraw Coins</h3>
-            <div class="balance-display">₹<span id="modalBalance">12.50</span></div>
-            <div class="method-grid">
-                <div class="method-card" onclick="selectMethod('upi')">
-                    <i class="fab fa-google-pay"></i>
-                    <span>UPI</span>
-                </div>
-                <div class="method-card" onclick="selectMethod('paytm')">
-                    <i class="fas fa-mobile-alt"></i>
-                    <span>Paytm</span>
-                </div>
-                <div class="method-card" onclick="selectMethod('bank')">
-                    <i class="fas fa-university"></i>
-                    <span>Bank</span>
-                </div>
-            </div>
-            <input type="text" id="withdrawAmount" placeholder="Enter amount (Min ₹5)" value="10">
-            <button class="withdraw-confirm" onclick="processWithdraw()">Withdraw Now</button>
-            <button class="close-modal" onclick="closeWithdraw()">Close</button>
-        </div>
+    <!-- Tasks Grid -->
+    <div class="tasks-grid">
+      <div class="task-card" onclick="completeCheckIn()">
+        <div class="task-icon checkin"><i class="fas fa-calendar-check"></i></div>
+        <h4>Daily Check-in</h4>
+        <p>+75 Coins</p>
+        <div class="task-btn">Claim Now</div>
+      </div>
+
+      <div class="task-card" onclick="spinWheel()">
+        <div class="task-icon spin"><i class="fas fa-dice"></i></div>
+        <h4>Lucky Spin</h4>
+        <p>+5–50 Coins</p>
+        <div class="task-btn spin-btn">Spin</div>
+      </div>
+
+      <div class="task-card" onclick="completeTask('video', 15)">
+        <div class="task-icon video"><i class="fas fa-play-circle"></i></div>
+        <h4>Watch Video</h4>
+        <p>+15 Coins</p>
+        <div class="task-btn">Watch</div>
+      </div>
+
+      <div class="task-card" onclick="completeTask('app', 150)">
+        <div class="task-icon app"><i class="fas fa-download"></i></div>
+        <h4>Install App</h4>
+        <p>+150 Coins</p>
+        <div class="task-btn">Install</div>
+      </div>
+
+      <div class="task-card" onclick="completeTask('game', 25)">
+        <div class="task-icon game"><i class="fas fa-gamepad"></i></div>
+        <h4>Play Game</h4>
+        <p>+25 Coins</p>
+        <div class="task-btn">Play</div>
+      </div>
+
+      <div class="task-card" onclick="completeTask('survey', 80)">
+        <div class="task-icon survey"><i class="fas fa-clipboard-check"></i></div>
+        <h4>Quick Survey</h4>
+        <p>+80 Coins</p>
+        <div class="task-btn">Start</div>
+      </div>
     </div>
 
-    <!-- Success Modal -->
-    <div id="successModal" class="success-modal">
-        <div class="success-content">
-            <i class="fas fa-check-circle"></i>
-            <h3>Success!</h3>
-            <p id="successMessage">Task completed</p>
-            <button onclick="closeSuccess()">Continue Earning</button>
-        </div>
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item active" onclick="switchTab('home')">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('history')">
+        <i class="fas fa-history"></i>
+        <span>History</span>
+      </div>
+      <div class="nav-item" onclick="showWithdraw()">
+        <i class="fas fa-wallet"></i>
+        <span>Wallet</span>
+      </div>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- Withdraw Modal -->
+  <div id="withdrawModal" class="modal">
+    <div class="modal-content">
+      <h3>Withdraw Coins</h3>
+      <div class="balance-display">₹<span id="modalBalance">0.00</span></div>
+      <div class="method-grid" id="methodGrid">
+        <div class="method-card" onclick="selectMethod('upi')">UPI</div>
+        <div class="method-card" onclick="selectMethod('paytm')">Paytm</div>
+        <div class="method-card" onclick="selectMethod('bank')">Bank</div>
+      </div>
+      <input type="number" id="withdrawAmount" placeholder="Enter amount (Min ₹5)" min="5" />
+      <button class="withdraw-confirm" onclick="processWithdraw()">Withdraw Now</button>
+      <button class="close-modal" onclick="closeWithdraw()">Close</button>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="success-modal">
+    <div class="success-content">
+      <i class="fas fa-check-circle"></i>
+      <h3>Success!</h3>
+      <p id="successMessage">Task completed</p>
+      <button onclick="closeSuccess()">Continue Earning</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
